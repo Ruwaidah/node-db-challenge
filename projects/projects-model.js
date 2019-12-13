@@ -3,7 +3,12 @@ module.exports = {
   getProjectById,
   addProject,
   getAllTask,
-  addTask
+  addTask,
+  addResource,
+  assignResource,
+  getResource,
+  getAllResource,
+  checkCompletes
 };
 
 const db = require("../db-config");
@@ -27,11 +32,52 @@ function addProject(data) {
 
 // Get Tasks
 function getAllTask(id) {
-  console.log(id);
+  //   console.log(id);
   return db("tasks").where({ project_id: id });
 }
 
 // Add Task to Project
 function addTask(data) {
   return db("tasks").insert(data);
+}
+
+// Add resource for project
+function addResource(data) {
+  return db("resources").insert(data);
+}
+
+// assign resource to project
+function assignResource(resourceId, projectId) {
+  return db("project_resource").insert({
+    project_id: projectId,
+    resource_id: resourceId
+  });
+}
+
+// Get Resource for Project
+function getResource(ids) {
+  console.log(ids);
+  return db("project_resource")
+    .select("project_Name", "resource_name")
+    .join("projects", "project_id", "projects.id")
+    .join("resources", "resource_id", "resources.id")
+    .where({ project_id: ids });
+}
+
+// Get All Resource
+function getAllResource() {
+  return db("resources");
+}
+
+// check Completed
+function checkCompletes(data) {
+  data.map(item => {
+    if (item.completed == 1) {
+      item.completed = true;
+      return data;
+    } else {
+      item.completed = true;
+      return data;
+    }
+  });
 }
