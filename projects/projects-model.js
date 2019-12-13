@@ -1,6 +1,7 @@
 module.exports = {
   getAllProjects,
   getProjectById,
+  addProject,
   getAllTask,
   addTask
 };
@@ -17,6 +18,11 @@ function getProjectById(id) {
   return db("projects")
     .where({ id })
     .first();
+}
+
+// Add project
+function addProject(data) {
+  return db("projects").insert(data);
 }
 
 // Get Tasks

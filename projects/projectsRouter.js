@@ -21,6 +21,13 @@ router.get("/:id", (req, res) => {
   });
 });
 
+// Add new Project
+router.post("/", (req, res) => {
+  projects.addProject(req.body).then(project => {
+    res.status(200).json(project);
+  });
+});
+
 // Add Task to Project
 router.post("/:id/tasks", (req, res) => {
   projects.addTask(req.body).then(task => {
