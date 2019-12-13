@@ -7,8 +7,7 @@ module.exports = {
   addResource,
   assignResource,
   getResource,
-  getAllResource,
-  checkCompletes
+  getAllResource
 };
 
 const db = require("../db-config");
@@ -32,7 +31,6 @@ function addProject(data) {
 
 // Get Tasks
 function getAllTask(id) {
-  //   console.log(id);
   return db("tasks").where({ project_id: id });
 }
 
@@ -67,17 +65,4 @@ function getResource(ids) {
 // Get All Resource
 function getAllResource() {
   return db("resources");
-}
-
-// check Completed
-function checkCompletes(data) {
-  data.map(item => {
-    if (item.completed == 1) {
-      item.completed = true;
-      return data;
-    } else {
-      item.completed = true;
-      return data;
-    }
-  });
 }
